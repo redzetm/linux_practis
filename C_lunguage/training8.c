@@ -28,6 +28,7 @@ void print_tail(const char *filename) {
     size_t total_read = 0;
 
     // スキャンして末尾から改行を数える
+    //while文全体読まないとnewline_countが\nの改行コード数えてるってわからないね
     while (pos > 0 && newline_count <= TAIL_LINES) {
         size_t to_read = (pos >= BUFFER_SIZE) ? BUFFER_SIZE : pos;
         pos -= to_read;
