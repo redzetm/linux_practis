@@ -13,7 +13,7 @@ int main(void) {
  
     if (pid == 0) {
         // 子プロセス
-        printf("Child: PID=%d, PPID=%d\n", getpid(), getppid());
+        printf("子プロセス: PID=%d, PPID=%d\n", getpid(), getppid());
         exit(42);  // 任意の終了コード
     } else {
         // 親プロセス
@@ -28,11 +28,11 @@ int main(void) {
         printf("Parent: waited for PID=%d\n", wpid);
  
         if (WIFEXITED(status)) {
-            printf("Child exited normally with status=%d\n", WEXITSTATUS(status));
+            printf("子プロセス exited normally with status=%d\n", WEXITSTATUS(status));
         } else if (WIFSIGNALED(status)) {
-            printf("Child terminated by signal %d\n", WTERMSIG(status));
+            printf("子プロセス terminated by signal %d\n", WTERMSIG(status));
         } else {
-            printf("Child ended abnormally\n");
+            printf("子プロセス ended abnormally\n");
         }
     }
  
