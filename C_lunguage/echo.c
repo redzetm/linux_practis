@@ -22,22 +22,18 @@
 #include "c-ctype.h"
 
 /* The official name of this program (e.g., no 'g' prefix).  */
-#define PROGRAM_NAME "echo"
+#define PROGRAM_NAME "echo"   // エコーコマンドのプログラム名
 
-#define AUTHORS \
-  proper_name ("Brian Fox"), \
-  proper_name ("Chet Ramey")
+#define AUTHORS \                   // 著者情報 proper_nameの定義が見つけらないため、ここに追加
+  proper_name ("Brian Fox"), proper_name ("Chet Ramey")
 
-/* If true, interpret backslash escapes by default.  */
-#ifndef DEFAULT_ECHO_TO_XPG
-enum { DEFAULT_ECHO_TO_XPG = false };
+#ifndef DEFAULT_ECHO_TO_XPG             // DEFAULT_ECHO_TO_XPGが未定義の場合の定義で
+enum { DEFAULT_ECHO_TO_XPG = false }; 　// デフォルトでは偽（false）に設定　0ですね
 #endif
 
 void
 usage (int status)
 {
-  /* STATUS should always be EXIT_SUCCESS (unlike in most other
-     utilities which would call emit_try_help otherwise).  */
   affirm (status == EXIT_SUCCESS);
 
   printf (_("\
