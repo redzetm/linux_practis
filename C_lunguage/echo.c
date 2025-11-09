@@ -52,11 +52,11 @@ usage (int status)
   \n\
   -n             do not output the trailing newline\n\
   "), stdout);
-  fputs (_(DEFAULT_ECHO_TO_XPG)
+  fputs (_(DEFAULT_ECHO_TO_XPG
            ? N_("\
   -e             enable interpretation of backslash escapes (default)\n\
   -E             disable interpretation of backslash escapes\n")
-  , program_name, program_name);
+           : ""), stdout);
   
   fputs (_("\
   Echo the STRING(s) to standard output.\n\
