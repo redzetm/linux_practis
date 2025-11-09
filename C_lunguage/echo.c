@@ -56,12 +56,23 @@ usage (int status)
 //DEFAULT_ECHO_TO_XPGが真の場合、-eオプションがデフォルトで有効になる。
 //まとめると、DEFAULT_ECHO_TO_XPGが真なら、-eオプションも-Eオプションも有効で
 //DEFAULT_ECHO_TO_XPGが偽なら""でなにも表示しないってことかな。
+//DEFAULT_ECHO_TO_XPG は、echo コマンドが POSIX（XPG）準拠の動作をするかどうかを判定するためのマクロ
+//判定し、0(偽)か非0(真)が入るイメージ。
+//echo の挙動を POSIX準拠（XPGモード）にするかどうかを決めるが、主に -e や -E オプションのデフォルト挙動に
+//影響する。
+//定義
+//#ifndef DEFAULT_ECHO_TO_XPG
+//enum { DEFAULT_ECHO_TO_XPG = false };
+//#endif
+//posixly_correctは、内部フラグで、POSIXモードが有効かどうかを判定する。getenv("POSIXLY_CORRECT")は、
+//環境変数で POSIX モードを強制するのor判定となる。
 
   fputs (_(DEFAULT_ECHO_TO_XPG
            ? N_("\
   -e             enable interpretation of backslash escapes (default)\n\
   -E             disable interpretation of backslash escapes\n")
            : ""), stdout);
+  
   
   fputs (_("\
   Echo the STRING(s) to standard output.\n\
@@ -124,9 +135,7 @@ hextobin (unsigned char c)
     }
 }
 
-/* Print the words in LIST to standard output.  If the first word is
-   '-n', then don't print a trailing newline.  We also support the
-   echo syntax from Version 9 unix systems. */
+
 
 int
 main (int argc, char **argv)
