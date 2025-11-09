@@ -134,7 +134,9 @@ hextobin (unsigned char c)
     case 'f': case 'F': return 15;
     }
 }
-
+//16進数文字を対応する10進数に変換する関数。
+//例えば、'A'を10に、'F'を15に変換する。
+//asciiコードを利用して変換を行っている。
 
 
 int
