@@ -52,6 +52,11 @@ usage (int status)
   \n\
   -n             do not output the trailing newline\n\
   "), stdout);
+
+//DEFAULT_ECHO_TO_XPGが真の場合、-eオプションがデフォルトで有効になる。
+//まとめると、DEFAULT_ECHO_TO_XPGが真なら、-eオプションも-Eオプションも有効で
+//DEFAULT_ECHO_TO_XPGが偽なら""でなにも表示しないってことかな。
+
   fputs (_(DEFAULT_ECHO_TO_XPG
            ? N_("\
   -e             enable interpretation of backslash escapes (default)\n\
