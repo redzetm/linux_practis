@@ -11,28 +11,53 @@
 #define AUTHORS \             //著者情報を定義
   proper_name ("Brian Fox"), proper_name ("Chet Ramey")
 
-/* If true, interpret backslash escapes by default.  */
 //DEFAULT_ECHO_TO_XPGが未定義の場合、falseに設定だけど、enum型だからfalseじゃなくても0ですね。
 #ifndef DEFAULT_ECHO_TO_XPG
 enum { DEFAULT_ECHO_TO_XPG = false };
 #endif
 
+/*
+usage()の使い方
+コマンドラインツールやスクリプトで、使い方（Usage）を表示するための関数。
+主に引数が不正なときや --help オプションが指定されたときに呼び出される。
+*/
 void
 usage (int status)
 {
-  /* STATUS should always be EXIT_SUCCESS (unlike in most other
-     utilities which would call emit_try_help otherwise).  */
+  //affirm マクロは、指定された条件式 E を評価し、その結果が偽の場合にプログラムを停止させる
+  //デバッグ用のアサーション機能を提供。このマクロは、C++ 標準ライブラリの 
+  //assert マクロをラップしたもの。
+  /*
+  assert.h の affirm マクロの定義
+  #ifdef NDEBUG
+  # define affirm(E) assume (E)
+  #else
+  # define affirm(E) assert (E)
+  #endif
+  */
   affirm (status == EXIT_SUCCESS);
-
+  //affirm()は、引数の条件が真であれば何もせず以下のコードを実行し続けるが、
+  //偽であればプログラムを停止させる。abort()関数を呼び出してプログラムを強制終了させる。
   printf (_("\
-Usage: %s [SHORT-OPTION]... [STRING]...\n\
+  Usage: %s [SHORT-OPTION]... [STRING]...\n\
   or:  %s LONG-OPTION\n\
-"), program_name, program_name);
+  "), program_name, program_name);
+
   fputs (_("\
-Echo the STRING(s) to standard output.\n\
-\n\
+  Echo the STRING(s) to standard output.\n\
+  \n\
   -n             do not output the trailing newline\n\
-"), stdout);
+  "), stdout);
+  fputs (_(DEFAULT_ECHO_TO_XPG
+           ? N_("\
+  -e             enable interpretation of backslash escapes (default)\n\
+  -E             disable interpretation of backslash escapes\n")
+  "), program_name, program_name);
+  fputs (_("\
+  Echo the STRING(s) to standard output.\n\
+  \n\
+  -n             do not output the trailing newline\n\
+  "), stdout);
   fputs (_(DEFAULT_ECHO_TO_XPG
            ? N_("\
   -e             enable interpretation of backslash escapes (default)\n\
