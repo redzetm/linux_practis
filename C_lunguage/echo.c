@@ -43,6 +43,10 @@ usage (int status)
   or:  %s LONG-OPTION\n\
   "), program_name, program_name);
 
+//この _("...") の書き方は、GNU gettext による国際化（i18n）対応のためのマクロ。
+//プログラムが多言語対応するために“翻訳してもらうべき文字列”としてマーク
+//gettext()関数によって翻訳されることを期待しているってこと。
+
   fputs (_("\
   Echo the STRING(s) to standard output.\n\
   \n\
@@ -97,8 +101,8 @@ as it avoids problems when outputting option-like strings.\n\
   emit_ancillary_info (PROGRAM_NAME);
   exit (status);
 }
+//上記はusage()関数の定義で、コマンドラインツールの使い方を表示する。
 
-/* Convert C from hexadecimal character to integer.  */
 static int
 hextobin (unsigned char c)
 {
