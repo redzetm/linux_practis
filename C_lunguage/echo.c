@@ -150,6 +150,10 @@ main (int argc, char **argv)
   bool allow_options =
     (! posixly_correct
      || (! DEFAULT_ECHO_TO_XPG && 1 < argc && streq (argv[1], "-n")));
+  //streq()は、2つの文字列が等しいかどうかを比較する関数。system.hで定義されている。
+  //allow_options変数は、オプションの解析を許可するかどうかを判定する。
+  //POSIXモードが有効でない場合、または、DEFAULT_ECHO_TO_XPGが偽で
+  //かつ最初の引数が-nの場合にtrueになる。
 
   
   bool do_v9 = DEFAULT_ECHO_TO_XPG;
