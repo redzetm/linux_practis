@@ -142,15 +142,16 @@ hextobin (unsigned char c)
 int
 main (int argc, char **argv)
 {
-  bool display_return = true;
-  bool posixly_correct = !!getenv ("POSIXLY_CORRECT");
+  bool display_return = true;   //display_return変数をtrueに初期化
+  bool posixly_correct = !!getenv ("POSIXLY_CORRECT");  //環境変数POSIXLY_CORRECTが設定されているかどうかを
+                                                        //判定し、真偽値に変換している。
+                                                        //!!は二重否定で、ポインタの有無を真偽値に変換する
+                                                        //C言語特有のやつ（そうゆうものと覚えるしかない）
   bool allow_options =
     (! posixly_correct
      || (! DEFAULT_ECHO_TO_XPG && 1 < argc && streq (argv[1], "-n")));
 
-  /* System V machines already have a /bin/sh with a v9 behavior.
-     Use the identical behavior for these machines so that the
-     existing system shell scripts won't barf.  */
+  
   bool do_v9 = DEFAULT_ECHO_TO_XPG;
 
   initialize_main (&argc, &argv);
@@ -161,8 +162,8 @@ main (int argc, char **argv)
 
   atexit (close_stdout);
 
-  /* We directly parse options, rather than use parse_long_options, in
-     order to avoid accepting abbreviations.  */
+  
+
   if (allow_options && argc == 2)
     {
       if (streq (argv[1], "--help"))
