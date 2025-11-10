@@ -146,7 +146,7 @@ main (int argc, char **argv)
   bool posixly_correct = !!getenv ("POSIXLY_CORRECT");  //環境変数POSIXLY_CORRECTが設定されているかどうかを
                                                         //判定し、真偽値に変換している。
                                                         //!!は二重否定で、ポインタの有無を真偽値に変換する
-                                                        //C言語特有のやつ（そうゆうものと覚えるしかない）
+                                                        //C言語特有のやつ（そうゆうものと覚えるしかない）　
   bool allow_options =
     (! posixly_correct
      || (! DEFAULT_ECHO_TO_XPG && 1 < argc && streq (argv[1], "-n")));
