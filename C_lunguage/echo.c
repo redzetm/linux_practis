@@ -140,7 +140,7 @@ hextobin (unsigned char c)
 
 
 int
-main (int argc, char **argv)
+main (int argc, char **argv)　//main関数の定義**はポインタのポインタ、配列argvの各要素は文字列へのポインタ
 {
   bool display_return = true;   //display_return変数をtrueに初期化
   bool posixly_correct = !!getenv ("POSIXLY_CORRECT");  //環境変数POSIXLY_CORRECTが設定されているかどうかを
@@ -157,10 +157,21 @@ main (int argc, char **argv)
 
   
   bool do_v9 = DEFAULT_ECHO_TO_XPG;
+  //do_v9変数は、バックスラッシュエスケープシーケンスの解釈を有効にするかどうかを判定する。
+  //DEFAULT_ECHO_TO_XPGの値に基づいて初期化される。この場合は、falseになる。
 
   initialize_main (&argc, &argv);
+  //initialize_main()関数は、プログラムの初期化を行う。今回の場合、引数の整備などを行う。
+  //具体的には、ロケールの設定や、プログラム名の設定などを行う。
+  //system.hで定義されているが、汎用的なことで実装されているが、Linux環境での
+  //動作では何もしないところが多い。
+
   set_program_name (argv[0]);
+  //プログラム名を設定している。argv[0]には実行されたプログラムの名前が入っている。
+
   setlocale (LC_ALL, "");
+  //ロケールを設定している。LC_ALLは、すべてのロケールカテゴリを設定することを意味する。
+  //""は、環境変数に基づいてロケールを設定する意味。
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
