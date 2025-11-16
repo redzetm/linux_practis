@@ -172,7 +172,12 @@ main (int argc, char **argv)　//main関数の定義**はポインタのポイ�
   setlocale (LC_ALL, "");
   //ロケールを設定している。LC_ALLは、すべてのロケールカテゴリを設定することを意味する。
   //""は、環境変数に基づいてロケールを設定する意味。
+  
   bindtextdomain (PACKAGE, LOCALEDIR);
+//このあとに続く textdomain(PACKAGE); によって、実際に使う翻訳ドメインが決まります。
+//setlocale(LC_ALL, "");
+//bindtextdomain(PACKAGE, LOCALEDIR);
+//textdomain(PACKAGE);
   textdomain (PACKAGE);
 
   atexit (close_stdout);
@@ -180,11 +185,15 @@ main (int argc, char **argv)　//main関数の定義**はポインタのポイ�
   
 
   if (allow_options && argc == 2)
-    {
+      //allow_optionsが真で、引数が2つだけの場合（プログラム名と1つの引数）
+  {
+      {
       if (streq (argv[1], "--help"))
         usage (EXIT_SUCCESS);
+        //--helpオプションが指定された場合、usage()関数を呼び出して使い方を表示し、正常終了する。
 
       if (streq (argv[1], "--version"))
+      //--versionオプションが指定された場合、バージョン情報を表示し、正常終了する。
         {
           version_etc (stdout, PROGRAM_NAME, PACKAGE_NAME, Version, AUTHORS,
                        (char *) nullptr);
@@ -192,19 +201,19 @@ main (int argc, char **argv)　//main関数の定義**はポインタのポイ�
         }
     }
 
-  --argc;
-  ++argv;
+  argc--;
+  argv++;
 
+  }
+  
   if (allow_options)
+  {
     while (argc > 0 && *argv[0] == '-')
       {
         char const *temp = argv[0] + 1;
         size_t i;
 
-        /* If it appears that we are handling options, then make sure that
-           all of the options specified are actually valid.  Otherwise, the
-           string should just be echoed.  */
-
+        
         for (i = 0; temp[i]; i++)
           switch (temp[i])
             {
@@ -217,8 +226,7 @@ main (int argc, char **argv)　//main関数の定義**はポインタのポイ�
         if (i == 0)
           goto just_echo;
 
-        /* All of the options in TEMP are valid options to ECHO.
-           Handle them. */
+ 
         while (*temp)
           switch (*temp++)
             {
@@ -238,7 +246,7 @@ main (int argc, char **argv)　//main関数の定義**はポインタのポイ�
         argc--;
         argv++;
       }
-
+  }
 just_echo:
 
   if (do_v9 || posixly_correct)
